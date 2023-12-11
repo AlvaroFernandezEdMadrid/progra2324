@@ -1,0 +1,11 @@
+Que gestione los datos de stock de una tienda de comestibles, la información a recoger será:
+
+nombre del producto, precio, cantidad en stock. 
+
+La tienda dispone de 10 productos distintos. El programa debe ser capaz mostrar un menú con las siguientes opciones:
+
+1. Dar de alta un producto nuevo (no pueden repetir por nombre)
+2. Buscar un producto por su nombre. Pedimos el nombre y se muestra su precio y el stock.
+3. Modificar el stock y precio de un producto dado el nombre.
+4. Dar de baja un producto (dado el nombre).
+5. Salir. Mostrar todos los productos(nombre,precio,stock) ordenados alfabéticamente
