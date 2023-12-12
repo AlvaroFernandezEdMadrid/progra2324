@@ -1,0 +1,10 @@
+Realizar un programa que gestione las notas de una clase de n alumnos de los cuales tendremos que leer su nombre y sus notas al principio de su ejecución. Cada alumno puede tener un máximo de 6 notas. (cada alumno puede tener un número de notas distinto)
+El programa debe mostrar a continuación un menú con las siguientes opciones:
+
+1. Buscar un alumno y mostrar sus datos (nombre y notas).
+2. Modificar una nota de un alumno. El programa debe preguntar el nombre y la nota a modificar y el valor de la nota.
+3. Mostrar la media de todas las notas de todos los alumnos.
+4. Mostrar la media y el nombre de los alumnos que tengan alguna nota menor que 5.
+5. Mostrar nombre del alumno que mejor nota media ha sacado.
+6. Listar los alumnos ordendos alfabéticamente. De cada alumno mostrar su nombre y todas sus notas.
+7. Salir
