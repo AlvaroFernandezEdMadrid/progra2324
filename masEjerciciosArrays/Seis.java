@@ -2,6 +2,8 @@ package masEjerciciosArrays;
 
 import java.util.Iterator;
 
+import javax.print.attribute.standard.Media;
+
 import Libreria.Libreria;
 import daw.com.Teclado;
 
@@ -52,7 +54,7 @@ public class Seis {
 			modNotaAlumno(nomAlumno, notas);
 			break;
 		case 3:
-			mostrarMedia(nomAlumno, notas);
+			mostrarMedia(notas);
 			break;
 		case 4:
 			mostrarMediaMen5(nomAlumno, notas);
@@ -84,27 +86,45 @@ public class Seis {
 	}
 
 	private static void modNotaAlumno(String[] nomAlumno, int[][] notas) {
-		// TODO Auto-generated method stub
+		String alumnoABuscar;
+		int posAlumno=-1;
+		int posNotaAModificar=-1;
 		
+		do {
+			alumnoABuscar=Teclado.leerString("Nombre del alumno a modificar: ");
+			posAlumno=buscarAlumno(alumnoABuscar, nomAlumno);
+		} while (posAlumno==-1);
+		
+		posNotaAModificar=Libreria.leerEntreLimites(0, notas[posAlumno].length-1, "Que nota?");
+		
+		notas[posAlumno][posNotaAModificar]=Libreria.leerEntreLimites(1, 10, "Nueva nota: ");
 	}
 
-	private static void mostrarMedia(String[] nomAlumno, int[][] notas) {
-		// TODO Auto-generated method stub
+	private static void mostrarMedia(int[][] notas) {
+		float media=0;
 		
+		media=calcularMedia(notas);
+		
+		System.out.println("Media: "+media);
 	}
 
 	private static void mostrarMediaMen5(String[] nomAlumno, int[][] notas) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	private static void mostrarMejor(String[] nomAlumno, int[][] notas) {
-		// TODO Auto-generated method stub
+		String nomMejor="";
+		int posMejor;
+		
+		posMejor=0;
+		
+		for (int i = 0; i < notas.length; i++) {
+			
+		}
 		
 	}
 
 	private static void listarAlumnos(String[] nomAlumno, int[][] notas) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -125,5 +145,21 @@ public class Seis {
 		}
 		
 		return pos;
+	}
+	
+	private static float calcularMedia(int[][] notas) {
+		float acum=0;
+		int totalNotas=0;
+		
+		for (int i = 0; i < notas.length; i++) {
+			for (int j = 0; j < notas.length-1; j++) {
+				acum+=notas[i][j];
+				totalNotas++;
+			}
+		}
+		
+		acum/=totalNotas;
+		
+		return acum;
 	}
 }
