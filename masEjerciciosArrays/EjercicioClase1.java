@@ -1,6 +1,7 @@
 package masEjerciciosArrays;
 
 import Libreria.Libreria;
+import daw.com.Teclado;
 
 //Guardar temperaturas de un conjunto de n dias, pedir maxima y minima, calcular y 
 //mostrar los dias en los que ha hecho la temperatura minima.
@@ -16,9 +17,9 @@ public class EjercicioClase1 {
 		
 		//Rellenar temperaturas minimas y maximas.
 		for (int i = 0; i < dia.length; i++) {
-			dia[i][0]=Libreria.leerEnteroPositivo("Temperatura minima dia "+i+":");
+			dia[i][0]=Teclado.leerInt("Temperatura minima dia "+i+":");
 			do {
-				dia[i][1]=Libreria.leerEnteroPositivo("Temperatura maxima dia "+i+":");
+				dia[i][1]=Teclado.leerInt("Temperatura maxima dia "+i+":");
 			} while (dia[i][0]>=dia[i][1]);
 		}
 		
@@ -50,8 +51,6 @@ public class EjercicioClase1 {
 				if (dia[i][j]==tempABuscar) {
 					System.out.println("El dia "+i+" hizo la temperatura de "+tempABuscar+" grados.");
 				}
-				else
-					System.out.println("No hubo ningun dia que hiciese esa temperatura.");
 			}
 		}
 		
