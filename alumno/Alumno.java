@@ -81,14 +81,14 @@ public class Alumno {
 		leerOtrosDatos();
 	}
 
-	private void leerOtrosDatos() {
+	public void leerOtrosDatos() {
 		// TODO Auto-generated method stub
 		nombre=Teclado.leerString("Nombre: ");
 		nota=Libreria.leerEntreLimites(NOTAMINIMA, NOTAMAXIMA, "Nota:");
 		repetidor=Teclado.leerString("Es repetidor? (S/N)").equalsIgnoreCase("s");
 	}
 
-	private void leerNia() {
+	public void leerNia() {
 		// TODO Auto-generated method stub
 		nia=Teclado.leerString("Nia: ");
 	}
@@ -97,10 +97,10 @@ public class Alumno {
 		System.out.println("NIA: "+nia);
 		System.out.println("Nombre: "+nombre);
 		System.out.println("Nota: "+nota);
-		System.out.println(repetidor?"Es repetirdor":"No es repetidor");	
+		System.out.println(repetidor?"Es repetidor":"No repite");	
 	}
 	
-	public boolean estaSuspenso() {
+	public boolean isSuspenso() {
 		return nota>5;
 	}
 	
