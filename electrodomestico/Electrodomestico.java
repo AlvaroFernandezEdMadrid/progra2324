@@ -71,23 +71,134 @@ public class Electrodomestico {
 		this.consumo = consumo;
 	}
 	
-	private void leerDatos() {
-		leerOtrosDatos();
+	
+
+	@Override
+	public String toString() {
+		return "Electrodomestico [precioBase=" + precioBase + ", peso=" + peso + ", color=" + color + ", consumo="
+				+ consumo + "]";
 	}
 
-	private void leerOtrosDatos() {
+	public void leerDatos() {
 		setPrecioBase(Teclado.leerFloat("Introduce el precio base: "));
 		setPeso(Teclado.leerInt("Introduce el peso: "));
-		setColor(leerColor());
+		setColor(comprobarColor());
+		setConsumo(comprobarConsumoEnergetico());
 	}
 
-	private Color leerColor() {
+	public float getPrecioFinal() {
+		float porConsumo=calcularIncrementoConsumo();
+		float porPeso=calcularIncrementoPeso();
+		return precioBase+porConsumo+porPeso;
+	};
+	
+	private float calcularIncrementoPeso() {
+		float incremento=0;
+		
+		if (peso>=80) {
+			incremento=100;
+		}else if (peso<80&&peso>=50) {
+			incremento=80;
+		}else if (peso<50&&peso>=20) {
+			incremento=50;
+		}else if (peso<20&&peso>0) {
+			incremento=10;
+		}
+		
+		return incremento;
+	}
+
+	private float calcularIncrementoConsumo() {
+		float incremento=0;
+		
+		switch (consumo) {
+		case A:
+			incremento=100;
+			break;
+		case B:
+			incremento=80;
+			break;
+		case C:
+			incremento=60;
+			break;
+		case D:
+			incremento=50;
+			break;
+		case E:
+			incremento=30;
+			break;
+		case F:
+			incremento=10;
+			break;
+		}
+		
+		return incremento;
+	}
+	
+	public void mostrarDatos() {
+		System.out.println(toString());
+	}
+	
+	private Consumo comprobarConsumoEnergetico() {
+		String entrada="";
+		Consumo consumo;
+		
+		entrada=Teclado.leerString("Consumo (A-F): ").toLowerCase();
+		
+		switch (entrada) {
+		case "a":
+			consumo=Consumo.A;
+			break;
+		case "b":
+			consumo=Consumo.B;
+			break;
+		case "c":
+			consumo=Consumo.C;
+			break;
+		case "d":
+			consumo=Consumo.D;
+			break;
+		case "e":
+			consumo=Consumo.E;
+			break;
+		case "f":
+			consumo=Consumo.F;
+			break;
+		default:
+			consumo=CONSUMODEFECTO;
+			break;
+		}
+		return consumo;
+	}
+
+	private Color comprobarColor() {
 		String entrada="";
 		Color color;
 		
-		entrada=Teclado.leerString("Color: ");
+		entrada=Teclado.leerString("Color (Blanco, Negro, Rojo, Azul, Gris): ").toLowerCase();
 		
-		return null;
+		switch (entrada) {
+		case "blanco":
+			color=Color.BLANCO;
+			break;
+		case "negro":
+			color=Color.NEGRO;
+			break;
+		case "rojo":
+			color=Color.ROJO;
+			break;
+		case "azul":
+			color=Color.AZUL;
+			break;
+		case "gris":
+			color=Color.GRIS;
+			break;
+		default:
+			color=COLORDEFECTO;
+			break;
+		}
+		
+		return color;
 	}
 	
 	
