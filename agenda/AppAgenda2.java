@@ -25,7 +25,7 @@ public class AppAgenda2 {
 		int opc, cuantos;
 		AppAgenda2 app;
 		
-		cuantos = Libreria.leerEnteroPositivo("cuÃ¡ntos?");
+		cuantos = Libreria.leerEnteroPositivo("Cuantos?");
 		app = new AppAgenda2(cuantos);
 		
 		
