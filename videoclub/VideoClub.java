@@ -13,7 +13,6 @@ public class VideoClub {
 	private String nombreVC;
 	
 	public VideoClub(Cliente[] clientes, ProductoVC[] productos, Alquiler[] alquileres, String nombreVC) {
-	
 		setClientes (clientes);
 		setProductos (productos);
 		setAlquileres (alquileres);
@@ -21,9 +20,7 @@ public class VideoClub {
 	}
 
 	public VideoClub(String nombreVC) {
-
 		this.nombreVC = nombreVC;
-		
 		clientes = new Cliente[MAXCLI];
 		productos = new ProductoVC[MAXPRO];
 		alquileres = new Alquiler[MAXALQ];
@@ -323,7 +320,7 @@ public class VideoClub {
 			producto.mostrarDatos();
 		}
 		else
-			Pantalla.escribirString("\nel cliente no existe o no tiene nada alquilado");
+			Pantalla.escribirString("\nEl cliente no existe o no tiene nada alquilado");
 		
 	}
 	

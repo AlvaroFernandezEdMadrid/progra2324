@@ -21,7 +21,7 @@ public class AppVideoClub {
 		String nombre;
 		AppVideoClub app;
 		
-		nombre=Teclado.leerString("Nombre del VideoClub");
+		nombre=Teclado.leerString("Nombre del Videoclub");
 		app=new AppVideoClub(nombre);
 		
 		do {
@@ -89,8 +89,8 @@ public class AppVideoClub {
 		
 		indice=videoClub.buscarProducto(nomProd);
 		
-		if (videoClub.buscarProducto(nomProd)!=-1) {
-			System.out.println(videoClub.getProductos()[indice]);
+		if (indice!=-1) {
+			videoClub.getProductos()[indice].mostrarDatos();
 		}else {
 			System.out.println("No hay productos");
 		}
@@ -134,11 +134,7 @@ public class AppVideoClub {
 	}
 
 	private void devolver() {
-		if (hayAlquileres()) {
-			videoClub.devolver();
-		}else {
-			System.out.println("No hay alquileres");
-		}
+		videoClub.devolver();
 	}
 
 	private void salir() {
@@ -176,20 +172,6 @@ public class AppVideoClub {
 				hay=true;
 			}
 		}
-		return hay;
-	}
-
-	private boolean hayAlquileres() {
-		boolean hay=false;
-		
-		for (int i = 0; i < videoClub.getProductos().length&&!hay; i++) {
-			if (videoClub.getProductos()[i]!=null) {
-				if (videoClub.getProductos()[i].isAlquilado()) {
-					hay=true;
-				}
-			} 
-		}
-		
 		return hay;
 	}
 }
