@@ -66,61 +66,82 @@ public class AppVideoClub {
 	}
 
 	private void listarNoAlq() {
-		// TODO Auto-generated method stub
-		if (videoClub.getProductos()!=null) {
+		if (hayProductos()) {
 			for (int i = 0; i < videoClub.getProductos().length; i++) {
-				if (videoClub.getProductos()[i]!=null&&(!videoClub.getProductos()[i].isAlquilado())) {
-					System.out.println(videoClub.getProductos()[i]);
+				if (!videoClub.getProductos()[i].isAlquilado()) {
+					videoClub.getProductos()[i].mostrarDatos();
 				}
 			}
 		}else {
-			System.out.println("Ninguno alquilado");
+			System.out.println("No hay productos");
 		}
 	}
 
 	private void anadirProd() {
-		// TODO Auto-generated method stub
-		ProductoVC prod;
-		
-		prod=new ProductoVC();
-		
-		if (!videoClub.existeProducto(prod)&&videoClub.contarProductosLibres()>0) {
-			videoClub.addProducto();
-		}
+		videoClub.addProducto();
 	}
 
 	private void mostrarFichaProd() {
-		// TODO Auto-generated method stub
+		String nomProd;
+		int indice;
 		
+		nomProd=Teclado.leerString("Nombre del producto: ");
+		
+		indice=videoClub.buscarProducto(nomProd);
+		
+		if (videoClub.buscarProducto(nomProd)!=-1) {
+			System.out.println(videoClub.getProductos()[indice]);
+		}else {
+			System.out.println("No hay productos");
+		}
+	
 	}
 
 	private void listarCli() {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < videoClub.getClientes().length; i++) {
+			if (videoClub.getClientes()[i]!=null) {
+				videoClub.getClientes()[i].mostrarDatos();
+			}
+		}
 	}
 
 	private void anadirCli() {
-		// TODO Auto-generated method stub
-		
+		videoClub.addCliente();	
 	}
 
 	private void mostrarFichaCli() {
-		// TODO Auto-generated method stub
+		String idCliente;
+		int indice;
 		
+		idCliente=Teclado.leerString("Introduce el id del cliente a buscar: ");
+			
+		indice=videoClub.buscarCliente(idCliente);
+			
+		if (indice!=-1) {
+			videoClub.getClientes()[indice].mostrarDatos();
+		}else {
+			System.out.println("No existen clientes");
+		}
 	}
 
 	private void alquilar() {
-		// TODO Auto-generated method stub
+		if (hayClientes()&&hayProductos()) {
+			videoClub.alquilar();
+		}else {
+			System.out.println("No hay Clientes o Productos");
+		}
 		
 	}
 
 	private void devolver() {
-		// TODO Auto-generated method stub
-		
+		if (hayAlquileres()) {
+			videoClub.devolver();
+		}else {
+			System.out.println("No hay alquileres");
+		}
 	}
 
 	private void salir() {
-		// TODO Auto-generated method stub
 		System.out.println("\nFin");
 	}
 
@@ -136,4 +157,39 @@ public class AppVideoClub {
 		System.out.println("\n9. Salir");
 	}
 
+	private boolean hayProductos() {
+		boolean hay=false;
+		
+		for (int i = 0; i < videoClub.getProductos().length&&!hay; i++) {
+			if (videoClub.getProductos()[i]!=null) {
+				hay=true;
+			}
+		}
+		return hay;
+	}
+
+	private boolean hayClientes() {
+		boolean hay=false;
+		
+		for (int i = 0; i < videoClub.getClientes().length&&!hay; i++) {
+			if (videoClub.getClientes()[i]!=null) {
+				hay=true;
+			}
+		}
+		return hay;
+	}
+
+	private boolean hayAlquileres() {
+		boolean hay=false;
+		
+		for (int i = 0; i < videoClub.getProductos().length&&!hay; i++) {
+			if (videoClub.getProductos()[i]!=null) {
+				if (videoClub.getProductos()[i].isAlquilado()) {
+					hay=true;
+				}
+			} 
+		}
+		
+		return hay;
+	}
 }

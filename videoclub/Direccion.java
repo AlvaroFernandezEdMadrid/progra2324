@@ -57,19 +57,19 @@ public class Direccion {
 	
 	public void leerDatos ()
 	{
-		this.calle = Teclado.leerString("\ncalle");
-		this.portal = Teclado.leerString("\nportal");
-		this.localidad = Teclado.leerString("\nlocalidad");
-		this.codigoPostal = Teclado.leerString("\ncÃ³digo postal");
+		this.calle = Teclado.leerString("\nCalle");
+		this.portal = Teclado.leerString("\nPortal");
+		this.localidad = Teclado.leerString("\nLocalidad");
+		this.codigoPostal = Teclado.leerString("\nCodigo postal");
 		
 	}
 	
 	public void mostrarDatos ()
 	{
-		Pantalla.escribirString("\ncalle " + calle);
-		Pantalla.escribirString("\nportal " + portal);
-		Pantalla.escribirString("\nlocalidad " + localidad);
-		Pantalla.escribirString("\ncÃ³digo postal " + codigoPostal);
+		Pantalla.escribirString("\nCalle " + calle);
+		Pantalla.escribirString("\nPortal " + portal);
+		Pantalla.escribirString("\nLocalidad " + localidad);
+		Pantalla.escribirString("\nCodigo postal " + codigoPostal);
 	}
 
 }

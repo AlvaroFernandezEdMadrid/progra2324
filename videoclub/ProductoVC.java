@@ -106,7 +106,7 @@ public class ProductoVC {
 	
 	public void leerOtrosDatos() {
 		// TODO Auto-generated method stub
-		tipo = Teclado.leerString("\nEs pelÃ­cula ?").equalsIgnoreCase("S");
+		tipo = Teclado.leerString("\nEs pelicula ?").equalsIgnoreCase("S");
 		pvp = Teclado.leerFloat("\npvp");
 		setPvp (pvp);
 		plazo = Libreria.leerEnteroPositivo("\nplazo");
@@ -117,7 +117,7 @@ public class ProductoVC {
 
 	public void leerClave() {
 		// TODO Auto-generated method stub
-		titulo = Teclado.leerString("\ntitulo del producto ");
+		titulo = Teclado.leerString("\nTitulo del producto ");
 	}
 
 	@Override

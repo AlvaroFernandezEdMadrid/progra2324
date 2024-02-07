@@ -283,7 +283,7 @@ public class VideoClub {
 			
 			// pedir clave producto
 			// comprobar si existe el producto
-			// comprobar si el producto estÃ¡ alquilado
+			// comprobar si el producto esta alquilado
 			
 			do
 			{
@@ -298,7 +298,7 @@ public class VideoClub {
 			alquiler = new Alquiler (cliente,producto);
 			
 			
-			insertarAlquiler (alquiler);
+			insertarAlquiler(alquiler);
 			producto.setAlquilado(true);
 			Pantalla.escribirString("\nProducto alquilado correctamente");
 		}
