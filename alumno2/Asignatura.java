@@ -42,6 +42,11 @@ public class Asignatura {
 		if (nota<=0) {
 			nota=1f;
 		}
+		
+		if (nota>10) {
+			nota=10f;
+		}
+		
 		this.nota = nota;
 	}
 

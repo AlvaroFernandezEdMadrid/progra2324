@@ -1,6 +1,8 @@
 package alumno2;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Alumno {
 	private final static int MAXASIGNATURAS=6;
@@ -59,11 +61,71 @@ public class Alumno {
 	}
 
 	public Asignatura[] getAsignaturas() {
-		return new Asignatura(Asignatura);
+		Asignatura[] copia = null;
+	
+		if (asignaturas != null)
+		{
+			copia = new Asignatura[MAXASIGNATURAS];
+			for (int i = 0; i < asignaturas.length; i++)
+				if (asignaturas[i]!= null)
+					copia[i] = new Asignatura(asignaturas[i]);
+		}
+	
+	
+		return copia;
 	}
 
-	public void setAsignaturas(Asignatura[] asignaturas) {
-		this.asignaturas = asignaturas;
+	public void setAsignatura(String nueva) {
+		int donde=-1;
+		if (asignaturas!=null) {
+			for (int i = 0; i < asignaturas.length; i++) {
+				if (!tieneAsignatura(asignaturas[i])) {
+					donde=buscarHuecoAsignatura();
+					if (donde!=-1) {
+						
+					}
+				}
+			}
+		}
+	}
+
+	public boolean tieneAsignatura(String asig) {
+		boolean tiene=false;
+		
+		for (int i = 0; i < asignaturas.length; i++) {
+			if (asignaturas[i].equals(new Asignatura(asig))) {
+				tiene=true;
+			}
+		}
+		
+		return tiene;
+	}
+	
+	public boolean tieneAsignatura(Asignatura asig) {
+		boolean tiene=false;
+		
+		for (int i = 0; i < asignaturas.length; i++) {
+			if (asignaturas[i].equals(asig)) {
+				tiene=true;
+			}
+		}
+		
+		return tiene;
+	}
+	
+	@Override
+	public String toString() {
+		return "Alumno [nia=" + nia + ", nombre=" + nombre + ", fNac=" + fNac + ", asignaturas="
+				+ Arrays.toString(asignaturas) + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nia);
+	}
+
+	public boolean equals(Alumno otro) {
+		return this.nombre.equalsIgnoreCase(otro.nombre);
 	}
 	
 	
