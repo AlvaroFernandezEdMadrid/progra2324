@@ -1,20 +1,20 @@
 package alumno2;
 
-public class AppAlumno {
+public class PruebaAlumno {
 	private Alumno alum;
 	
-	public AppAlumno() {
+	public PruebaAlumno() {
 		alum=new Alumno();
 	}
 	
-	public AppAlumno(String nia) {
+	public PruebaAlumno(String nia) {
 		alum=new Alumno(nia);
 	}
 
 	public static void main(String[] args) {
-		AppAlumno app;
+		PruebaAlumno app;
 		
-		app=new AppAlumno("001");
+		app=new PruebaAlumno("001");
 		
 		app.operar();
 		

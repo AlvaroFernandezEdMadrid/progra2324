@@ -55,6 +55,8 @@ public class Alumno {
 			
 			setFecha (fecha);
 			
+			cuantas = cuantas <= 0? 1:cuantas;
+			
 			this.asignaturas = new Asignatura[cuantas];
 			
 			for (int i = 0; i < this.asignaturas.length; i++)
@@ -127,6 +129,7 @@ public class Alumno {
 		
 		public void setAsignatura (String nombre, int nota, int convocatoria)
 		{
+	
 			int pos = buscarAsignatura(nombre);
 			
 			if (pos != -1)
@@ -142,22 +145,35 @@ public class Alumno {
 		{
 			int pos = -1;
 			
-			for (int i = 0; i < asignaturas.length && pos != -1; i++)
-				if (nombre.equals(asignaturas[i].getNombre()))
+			for (int i = 0; i < asignaturas.length && pos == -1; i++)
+				if (asignaturas[i] != null &&
+							nombre.equals(asignaturas[i].getNombre()))
 					pos = i;
 			
 			return pos;
 		}
+		
+		public int buscarAsignatura (Asignatura asignatura)
+		{
+			int pos = -1;
+			
+			for (int i = 0; i < asignaturas.length && pos == -1; i++)
+				if (asignatura.equals(asignaturas[i]))
+					pos = i;
+			
+			return pos;
+		}
+		
 		
 		public boolean addAsignatura (Asignatura asignatura)
 		{
 			boolean exito = false;
 			int pos;
 			
-			if (buscarAsignatura (asignatura.getNombre()) != -1)
+			if (buscarAsignatura (asignatura.getNombre()) == -1)
 			{
 				pos = buscarAsignatura ("");
-				if (pos != 1)
+				if (pos != -1)
 				{
 					asignaturas[pos] = new Asignatura (asignatura);
 					exito = true;
@@ -191,7 +207,7 @@ public class Alumno {
 		
 		public void leerDatosNia ()
 		{
-			nia = Teclado.leerString("Nia: ");
+			nia = Teclado.leerString("nia ");
 		}
 		
 		public void leerOtrosDatos ()
@@ -200,15 +216,17 @@ public class Alumno {
 			int cuantas;
 			Asignatura temp;
 			
-			nombre = Teclado.leerString("Nombre ");
+			nombre = Teclado.leerString("nombre ");
 			
 			fechaString = Teclado.leerString("\nFecha nacimiento (yyyy-mm-dd)");
 			
 			setFecha (LocalDate.parse(fechaString));
 			
 			// leer asignaturas
-			cuantas = Libreria.leerEntreLimites(1, NNOTAS, "\nCuantas notas?");
+			cuantas = Libreria.leerEntreLimites(1, NNOTAS, "\nCuÃ¡ntas notas?");
 			asignaturas = new Asignatura[cuantas];
+			for (int i = 0; i < asignaturas.length; i++)
+				asignaturas[i] = new Asignatura ();
 			
 			for (int i = 0; i < asignaturas.length; i++)
 			{
@@ -216,7 +234,7 @@ public class Alumno {
 				do
 				{
 					temp.leerNombre();
-				}while (buscarAsignatura(temp.getNombre())!= -1);
+				}while (buscarAsignatura (temp.getNombre())!= -1);
 				
 				temp.leerOtrosDatos();
 				addAsignatura (temp);
@@ -226,7 +244,7 @@ public class Alumno {
 		
 		public void mostrarDatos ()
 		{
-			Pantalla.escribirString("\nNia " + nia);
+			Pantalla.escribirString("\nnia " + nia);
 			Pantalla.escribirString("\nNombre " + nombre);
 			Pantalla.escribirString("\nFecha nacimiento " + fecha);
 			

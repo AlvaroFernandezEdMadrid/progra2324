@@ -78,7 +78,7 @@ public class Asignatura {
 	}
 
 	public void leerNombre() {
-		nombre=Teclado.leerString("Nombre: ");
+		nombre=Teclado.leerString("Nombre asignatura: ");
 	}
 
 	@Override
