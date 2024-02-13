@@ -74,7 +74,7 @@ public class Asignatura {
 	
 	public void leerOtrosDatos() {
 		nota=Libreria.leerEntreLimites(MINNOTA, MAXNOTA, "Nota: ");
-		convocatoria=Libreria.leerEntreLimites(MAXCONV, MAXCONV, "Convocatoria: ");
+		convocatoria=Libreria.leerEntreLimites(MINCONV, MAXCONV, "Convocatoria: ");
 	}
 
 	public void leerNombre() {

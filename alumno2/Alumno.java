@@ -216,7 +216,7 @@ public class Alumno {
 				do
 				{
 					temp.leerNombre();
-				}while (buscarAsignatura (temp.getNombre())!= -1);
+				}while (buscarAsignatura(temp.getNombre())!= -1);
 				
 				temp.leerOtrosDatos();
 				addAsignatura (temp);
