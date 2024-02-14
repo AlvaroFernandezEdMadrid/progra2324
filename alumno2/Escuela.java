@@ -1,152 +1,165 @@
 package alumno2;
 
-import java.util.Arrays;
-
-import Libreria.Libreria;
-import daw.com.Teclado;
-
 public class Escuela {
-	private String nombre;
-	private int cuantos;
-	private Grupo[] grupos;
-	
-	public Escuela(String nombre, int cuantos, Grupo[] grupos) {
-		this.nombre = nombre;
-		setCuantos(cuantos);
-		setGrupos(grupos);
-	}
-	
-	public Escuela (String nombre) {
-		this(nombre,0,null);
-	}
-	
-	public Escuela() {
-		this("");
-	}
+	private Grupo grupos[];
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public Escuela(Grupo[] grupos) {
+		this.grupos = grupos;
 	}
 	
-	public int getCuantos() {
-		return cuantos;
+	public Escuela (int cuantos)
+	{
+		cuantos = cuantos <= 0 ? 1 : cuantos;
+		grupos = new Grupo[cuantos];
+		
+		// todos los grupos a null para indicar que no hay grupo
 	}
 	
-	public void setCuantos(int cuantos) {
-		if (cuantos<0) {
-			cuantos=0;
-		}
-		this.cuantos=cuantos;
+	public Escuela ()
+	{
+		this (3); // 3 grupos por defecto
 	}
 
 	public Grupo[] getGrupos() {
 		return grupos;
 	}
-	
+
 	public void setGrupos(Grupo[] grupos) {
 		this.grupos = grupos;
 	}
 	
-	public Grupo getGrupo(int cual) {
-		return grupos[cual];
+	public Grupo buscarGrupo (String nombre)
+	{
+		Grupo g = null;
+		
+		if (nombre != null && grupos != null)
+		{
+			for (int i = 0; g == null && i < grupos.length; i++)
+				if (grupos[i] != null &&
+							nombre.equalsIgnoreCase(grupos[i].getNombre()))
+					g = grupos[i];
+		}
+	
+		return g;
 	}
 	
-	public void setGrupo(Grupo grupo, int donde) {
-		grupos[donde]=grupo;
-	}
-
-	public int buscarGrupo(Grupo grupoABuscar) {
-		int pos=-1;
+	public int buscarGrupoAlumno (Alumno alumno)
+	{
 		
-		for (int i = 0; i < grupos.length; i++) {
-			if (grupoABuscar.getNombre().equalsIgnoreCase(grupos[i].getNombre())) {
-				pos=i;
-			}
-		}
+		int pos = - 1;
 		
+		for (int i = 0; pos == -1 && i < grupos.length; i++)
+			if (grupos[i] != null)
+				 if (grupos[i].buscarAlumno(alumno) != -1)
+					 pos = i;
 		return pos;
 	}
 	
-	public int buscarHueco() {
-		int donde=-1;
+	public boolean addAlumnoEnGrupo (Alumno a, String nombreGrupo)
+	{
+		boolean exito = false;
+		Grupo g = buscarGrupo(nombreGrupo);
 		
-		for (int i = 0; i < grupos.length&&donde==-1; i++) {
-			if (grupos[i]==null) {
-				donde=i;
-			}
-		}
+		if (g != null)
+			if (buscarGrupoAlumno(a) == -1) // buscar grupo del alumno
+				exito = g.addAlumno(a);
 		
-		return donde;
+		return exito;
 	}
-	
-	public boolean addGrupo(Grupo grupoAnadir) {
-		boolean exito=false;
+
+	public boolean removeAlumno (String nia)
+	{
+		boolean exito = false;
+		Grupo g;
+		int posG, posA;
+		Alumno a = new Alumno (nia);
 		
-		int donde=buscarHueco();
+		posG = buscarGrupoAlumno(a); // buscar el grupo del alumno
 		
-		if (buscarGrupo(grupoAnadir)!=-1&&donde!=-1) {
-			grupos[donde]=grupoAnadir;
-			exito=true;
+		if (posG != -1) // si existe el grupo 
+		{
+			posA = grupos[posG].buscarAlumno(a); // buscar posiciÃ³n del alumno en el grupo
+			grupos[posG].setAlumno(posA, null); // borrar alumno
+			exito = true;	
 		}
 		
 		return exito;
 	}
 	
-	public void leerDatos() {
-		leerClave();
-		inicializar();
-		leerGrupos();
-		leerAlumnos();
+	public String[] listaTutores ()
+	{
+		String tutores[] = new String [grupos.length];
+		int t = 0;
+		for (int i = 0; i < grupos.length; i++)
+			if (grupos[i] != null)
+			{
+				tutores[t] = grupos[i].getTutor();
+				t++;
+			}
+		
+		return tutores;
 	}
+	
+	public int alumnosPorAsignatura (String nombre)
+	{
+		int cuantos = 0, cuantosAlumnos;
+		Alumno a;
+		
+		// recorrer todos los grupos
+		for (int i = 0 ; i < grupos.length; i++)
+		{
+			if (grupos[i] != null)
+			{
+				cuantosAlumnos = grupos[i].getNAlumnos();
+				// recorrer los alumnos del grupo
+				for (int j = 0; j < cuantosAlumnos; j++)
 
-	private void leerAlumnos() {
-		Alumno nuevo;
-		
-		nuevo=new Alumno();
-		
-		for (int i = 0; i < grupos.length; i++) {
-			for (int j = 0; j < grupos[i].getNAlumnos(); j++) {
-				do {
-					nuevo.leerDatos();
-				} while (grupos[i].buscarAlumno(nuevo)!=-1);
-				grupos[i].addAlumno(nuevo);
+					if (grupos[i].getAlumno(j).buscarAsignatura(nombre) != -1)
+						 cuantos++;
 			}
 		}
-	}
-
-	private void inicializar() {
-		cuantos=Libreria.leerEnteroPositivo("Cuantos grupos: ");
-		grupos=new Grupo[cuantos];
-		for (int i = 0; i < grupos.length; i++) {
-			grupos[i]=new Grupo();
-		}
-	}
-
-	public void leerClave() {	
-		nombre=Teclado.leerString("Nombre de la escuela: ");
-	}
-
-	public void leerGrupos() {
-		for (int i = 0; i < grupos.length; i++) {
-			grupos[i].leerDatos();
-		}
+		
+		return cuantos;
 	}
 	
-	public boolean anadirAlumnoEnGrupo(Alumno a, String nombreGrupo) {
-		boolean exito=false;
+	public Alumno[] listarAlumnosGrupo (String nombre)
+	{
+		Grupo g = buscarGrupo(nombre);
+		Alumno alumnos[] = null;
+		int cuantos;
 		
-		int g=buscarGrupo(new Grupo(nombreGrupo));
+		if (g != null)
+		{
+			cuantos = g.getNAlumnos();
+			
+			if (cuantos > 0)
+			{
+				alumnos = new Alumno[cuantos];
+				
+				for (int i = 0; i < cuantos; i++)
+					alumnos[i] = g.getAlumno(i);
+				
+				ordenarAlumnos (alumnos);					
+			}
+		}
+		
+		return alumnos;
+	}
 
-		grupos[g].addAlumno(a);
+	private void ordenarAlumnos(Alumno[] alumnos) {
+		// TODO Auto-generated method stub
+		Alumno aux;
 		
-		return exito;
+		for (int i = 0; i < alumnos.length - 1; i++)
+			for (int j = i+1; j < alumnos.length; j++)
+				if (alumnos[i].getNombre().compareTo(alumnos[j].getNombre()) > 0)
+				{
+					aux = alumnos[i];
+					alumnos[i] = alumnos[j];
+					alumnos[j] = aux;
+				}
 	}
 	
-	public void mostrarDatos() {
-		System.out.println("Escuela [nombre=" + nombre + ", cuantos=" + cuantos + ", grupos=" + Arrays.toString(grupos) + "]");
-	}
+	
+	
 }
