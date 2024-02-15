@@ -23,7 +23,7 @@ public class AppEscuela {
 		int cuantos;
 		AppEscuela app;
 		
-		cuantos = Libreria.leerEnteroPositivo("Â¿CuÃ¡ntos grupos hay?");
+		cuantos = Libreria.leerEnteroPositivo("¿Cuantos grupos hay?");
 		
 		app = new AppEscuela (cuantos);
 		
@@ -41,7 +41,7 @@ public class AppEscuela {
 		do
 		{
 			mostrarOpciones ();
-			opc = Libreria.leerEntreLimites(1, SALIR, "\nelija una opciÃ³n");
+			opc = Libreria.leerEntreLimites(1, SALIR, "\nelija una opcion");
 			evaluarOpcion (opc);
 			
 		}while (opc != SALIR);
@@ -58,13 +58,50 @@ public class AppEscuela {
 			case 2:
 				addAlumno ();
 				break;
+			case 3:
+				removeAlumno();
+				break;
 			case 4:
 				buscarGruposReducidos ();
 				break;
+			case 5:
+				alumnosEnAsignatura();
+				break;
 			case 6:
 				salir();
+				break;
 		}
 		
+	}
+
+	private void alumnosEnAsignatura() {
+		String asig;
+		int cont=0;
+		
+		asig=Teclado.leerString("Asignatura: ");
+		
+		for (int i = 0; i < escuela.getGrupos().length; i++) {
+			for (int j = 0; j < escuela.getGrupos()[i].getNAlumnos(); j++) {
+				if (escuela.getGrupos()[i].getAlumno(j).buscarAsignatura(asig)!=-1) {
+					cont++;
+				}
+			}
+		}
+		
+		System.out.println("En la asignatura "+ asig + " hay " + cont + " alumnos.");
+		
+	}
+
+	private void removeAlumno() {
+		String nombreAl;
+		
+		nombreAl=Teclado.leerString("NIA del alumno a eliminar: ");
+		
+		if (escuela.removeAlumno(nombreAl)) {
+			System.out.println("Alumno eliminado correctamente.");
+		}else {
+			System.out.println("No se ha podido eliminar al alumno.");
+		}
 	}
 
 	private void salir() {

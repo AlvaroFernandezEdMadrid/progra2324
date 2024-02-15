@@ -117,7 +117,7 @@ public class Corredor {
 
 	@Override
 	public String toString() {
-		return "Corredor [nombre=" + nombre + ", dni=" + dni + ", edad=" + edad + ", sexo=" + sexo + ", dorsal="
+		return "Corredor [nombre=" + nombre + ", dni=" + dni + ", edad=" + edad + ", sexo=" + (sexo==true?"hombre":"mujer") + ", dorsal="
 				+ dorsal + ", segundos=" + segundos + "]";
 	}
 
@@ -134,18 +134,16 @@ public class Corredor {
 
 	public void leerOtrosDatos() {
 		
-		edad=Libreria.leerEnteroPositivo("Segundos: ");
+		edad=Libreria.leerEnteroPositivo("Edad: ");
 		
 		sexo=Teclado.leerString("Sexo H/M").equalsIgnoreCase("h")?HOMBRE:MUJER;
-		
-		dorsal=Libreria.leerEnteroPositivo("Dorsal: ");
 		
 		segundos=Libreria.leerEnteroPositivo("Segundos: ");
 	}
 
 
 	public void leerClave() {
-		dni=Teclado.leerString();
+		dni=Teclado.leerString("DNI: ");
 	}
 	
 	public void mostrarDatos() {
